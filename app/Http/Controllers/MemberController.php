@@ -249,6 +249,7 @@ public function edit($id)
     return view('form.edit', compact('member'));
 }
 
+
 public function update(Request $request, $id)
 {
     // Valider les données du formulaire
@@ -287,6 +288,24 @@ public function destroy($id)
     return redirect()->route('members.list')->with('success', 'Membre supprimé avec succès!');
     
 }
+public function index(Request $request)
+{
+    $query = Member::query();
+
+    if ($search = $request->input('search')) {
+        $query->where(function($query) use ($search) {
+            $query->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%{$search}%"])
+                  ->orWhere('email', 'like', '%' . $search . '%')
+                  ->orWhere('status', 'like', '%' . $search . '%');
+        });
+    }
+
+    $members = $query->whereNull('deleted_at')->paginate(12);
+
+    return view('form.index', compact('members'));
+}
+
+
 
 
 

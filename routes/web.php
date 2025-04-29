@@ -73,7 +73,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 
 
-
+//cote admin
 Route::get('/members', [MemberController::class, 'showMembersList'])->name('members.list');
 Route::get('/members/{id}', [MemberController::class, 'show'])->name('members.show');
 Route::get('/members/{id}/edit', [MemberController::class, 'edit'])->name('members.edit');
@@ -84,11 +84,12 @@ Route::delete('/members/{id}', [MemberController::class, 'destroy'])->name('memb
 
 
 
-
+// payment (paypal/stripe )
 Route::post('/create-stripe-session', [App\Http\Controllers\PaymentController::class, 'createStripeSession']);
 Route::get('/paypal-success', [App\Http\Controllers\PaymentController::class, 'paypalSuccess']);
 
-
+// routes/web.php
+Route::get('/membres', [MemberController::class, 'index'])->name('members.index');
 
 
 

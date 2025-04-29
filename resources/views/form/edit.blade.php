@@ -84,25 +84,29 @@
                         @enderror
                     </div>
 
-                    <!-- Form Actions -->
-                    <div class="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-gray-200">
-                        <a href="{{ route('members.show', $member->id) }}" class="px-6 py-3 text-center border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition duration-300">
-                            <i class="fas fa-times mr-2"></i> Annuler
-                        </a>
-                        <button type="submit" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 rounded-lg font-medium text-white shadow-md hover:shadow-lg transition duration-300">
-                            <i class="fas fa-save mr-2"></i> Sauvegarder
-                        </button>
+                   <!-- Form Actions -->
+<div class="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-gray-200">
+    <!-- Bouton Annuler -->
+    <a href="{{ route('members.show', $member->id) }}" class="px-6 py-3 text-center border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition duration-300">
+        <i class="fas fa-times mr-2"></i> Annuler
+    </a>
 
-                        <!-- Delete Button -->
-                        <form action="{{ route('members.destroy', $member->id) }}" method="POST" class="inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg font-medium text-white shadow-md hover:shadow-lg transition duration-300">
-                                <i class="fas fa-trash-alt mr-2"></i> Supprimer
-                            </button>
-                        </form>
-                    </div>
-                </form>
+    <!-- Bouton Sauvegarder -->
+    <button type="submit" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 rounded-lg font-medium text-white shadow-md hover:shadow-lg transition duration-300">
+        <i class="fas fa-save mr-2"></i> Sauvegarder
+    </button>
+</div>
+</form> <!-- fermeture du formulaire d'édition ici -->
+
+<!-- Formulaire de suppression avec confirmation -->
+<form action="{{ route('members.destroy', $member->id) }}" method="POST" class="inline-block mt-4" onsubmit="return confirmDelete()">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg font-medium text-white shadow-md hover:shadow-lg transition duration-300">
+        <i class="fas fa-trash-alt mr-2"></i> Supprimer
+    </button>
+</form>
+
             </div>
         </div>
     </div>
@@ -134,4 +138,12 @@
         transition-duration: 150ms;
     }
 </style>
+<script>
+    
+    function confirmDelete() {
+        return confirm("⚠️ Êtes-vous sûr de vouloir supprimer ce membre ? Cette action est irréversible !");
+    }
+
+
+</script>
 @endsection
