@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\TestMailController;
-
+use App\Http\Middleware\SetLanguage;
 
 /*
 |----------------------------------------------------------------------  
@@ -19,7 +19,7 @@ use App\Http\Controllers\TestMailController;
 |  
 */
 
-Route::name('members.')->controller(MemberController::class)->group(function () {
+Route::name('members.')->controller(MemberController::class)->middleware(SetLanguage::class)->group(function () {
     // Étape 1 - Informations personnelles
     Route::get('/', 'showStep1')->name('step1');
     Route::post('/', 'storeStep1')->name('storeStep1');
@@ -37,13 +37,13 @@ Route::name('members.')->controller(MemberController::class)->group(function () 
 });
 
 // Route for payment page
-Route::match(['get', 'post'], '/payment', [MemberController::class, 'showPaymentPage'])->name('members.payment');
+Route::match(['get', 'post'], '/payment', [MemberController::class, 'showPaymentPage'])->name('members.payment')->middleware(SetLanguage::class);
 
 // Route to submit the payment
-Route::post('/payment-submit', [MemberController::class, 'submitPayment'])->name('members.payment.submit');
+Route::post('/payment-submit', [MemberController::class, 'submitPayment'])->name('members.payment.submit')->middleware(SetLanguage::class);
 
 // Route to redirect to success page
-Route::get('/payment-success', [MemberController::class, 'paymentSuccess'])->name('members.success');
+Route::get('/payment-success', [MemberController::class, 'paymentSuccess'])->name('members.success')->middleware(SetLanguage::class);
 
 
 // Routes pages statiques
@@ -90,6 +90,26 @@ Route::get('/paypal-success', [App\Http\Controllers\PaymentController::class, 'p
 
 // routes/web.php
 Route::get('/membres', [MemberController::class, 'index'])->name('members.index');
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['fr', 'ar'])) {
+        session(['locale' => $locale]); 
+    }
+return redirect()->back();
+   
+})->name('setLocale');
+
+
 
 
 

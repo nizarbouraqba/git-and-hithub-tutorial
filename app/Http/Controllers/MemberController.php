@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Brevo\Api\TransactionalEmailsApi;
 use Brevo\Model\SendSmtpEmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,10 @@ class MemberController extends Controller
    
     // ➤ Étape 1 : Formulaire d’informations personnelles
     public function showStep1()
-    {
+
+    { $locale = Session::get('locale', config('app.locale'));
+       
+        // dd($locale);
         return view('form.step1', [
             'step1Data' => Session::get('member_data.step1', [])
         ]);

@@ -9,7 +9,7 @@
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                 </svg>
-                <span class="font-medium">Retour à la liste</span>
+                <span class="font-medium">{{ __('messages.back_to_list') }}</span>
             </a>
         </div>
 
@@ -33,7 +33,7 @@
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                         </svg>
-                        Modifier
+                        {{ __('messages.edit') }}
                     </a>
                 </div>
             </div>
@@ -53,12 +53,12 @@
                             @if($member->status == 'active')
                                 <span class="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
                             @endif
-                            {{ ucfirst($member->status) }}
+                            {{ __( 'messages.' . $member->status ) }}
                         </span>
                         
                         @if($member->created_at->diffInDays(now()) < 30)
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-800">
-                            Nouveau membre
+                            {{ __('messages.new_member') }}
                         </span>
                         @endif
                     </div>
@@ -75,7 +75,7 @@
                                 </svg>
                             </div>
                             <div class="ml-3">
-                                <h3 class="text-sm font-medium text-gray-500">Membre depuis</h3>
+                                <h3 class="text-sm font-medium text-gray-500">{{ __('messages.member_since') }}</h3>
                                 <p class="text-lg font-semibold text-gray-900">{{ $member->created_at->format('d/m/Y') }}</p>
                             </div>
                         </div>
@@ -90,12 +90,12 @@
                                 </svg>
                             </div>
                             <div class="ml-3">
-                                <h3 class="text-sm font-medium text-gray-500">Dernière activité</h3>
+                                <h3 class="text-sm font-medium text-gray-500">{{ __('messages.last_activity') }}</h3>
                                 <p class="text-lg font-semibold text-gray-900">
                                     @if($member->last_active_at)
                                         {{ $member->last_active_at->diffForHumans() }}
                                     @else
-                                        Jamais
+                                        {{ __('messages.never') }}
                                     @endif
                                 </p>
                             </div>
@@ -111,8 +111,8 @@
                                 </svg>
                             </div>
                             <div class="ml-3">
-                                <h3 class="text-sm font-medium text-gray-500">Rôle</h3>
-                                <p class="text-lg font-semibold text-gray-900">{{ $member->role ?? 'Membre' }}</p>
+                                <h3 class="text-sm font-medium text-gray-500">{{ __('messages.role') }}</h3>
+                                <p class="text-lg font-semibold text-gray-900">{{ $member->role ?? __('messages.member') }}</p>
                             </div>
                         </div>
                     </div>
@@ -122,16 +122,16 @@
                 <div class="space-y-6">
                     <!-- Bio -->
                     <div>
-                        <h2 class="text-lg font-semibold text-gray-900 mb-3">À propos</h2>
+                        <h2 class="text-lg font-semibold text-gray-900 mb-3">{{ __('messages.about') }}</h2>
                         <div class="prose max-w-none text-gray-600 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                            {{ $member->bio ?? 'Aucune information disponible.' }}
+                            {{ $member->bio ?? __('messages.no_information_available') }}
                         </div>
                     </div>
                     
                     <!-- Skills -->
                     @if($member->skills && count($member->skills) > 0)
                     <div>
-                        <h2 class="text-lg font-semibold text-gray-900 mb-3">Compétences</h2>
+                        <h2 class="text-lg font-semibold text-gray-900 mb-3">{{ __('messages.skills') }}</h2>
                         <div class="flex flex-wrap gap-2">
                             @foreach($member->skills as $skill)
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-50 text-indigo-700">

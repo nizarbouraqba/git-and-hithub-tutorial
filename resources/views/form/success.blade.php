@@ -15,27 +15,27 @@
 
         <!-- Titre avec effet de dégradé -->
         <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-700 mb-6">
-            Inscription réussie !
+            {{ __('messages.registration_success_title') }}
         </h2>
 
         <!-- Message -->
         <p class="text-gray-600 mb-8 text-lg leading-relaxed">
-            Merci pour votre inscription. Nous avons bien reçu vos informations et documents.<br>
-            <span class="font-medium text-green-600">Vous serez contacté par notre équipe sous 48 heures.</span>
+            {{ __('messages.registration_success_message') }}<br>
+            <span class="font-medium text-green-600">{{ __('messages.registration_success_submessage') }}</span>
         </p>
 
         <!-- Bouton avec effet -->
         <div class="mt-10">
             <a href="{{ route('members.step1') }}" 
                class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                <i class="fas fa-home mr-3"></i> Retour à l'accueil
+                <i class="fas fa-home mr-3"></i> {{ __('messages.back_to_home') }}
             </a>
         </div>
 
         <!-- Info supplémentaire -->
         <div class="mt-8 pt-6 border-t border-gray-100">
             <p class="text-sm text-gray-500">
-                Vous avez des questions ? <a href="#" class="font-medium text-green-600 hover:text-green-800">Contactez-nous</a>
+                {{ __('messages.have_questions') }} <a href="#" class="font-medium text-green-600 hover:text-green-800">{{ __('messages.contact_us') }}</a>
             </p>
         </div>
     </div>

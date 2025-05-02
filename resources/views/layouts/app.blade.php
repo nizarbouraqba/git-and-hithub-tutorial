@@ -37,7 +37,7 @@
                         }
                     },
                     fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
+                        sans: ['Montserrat', 'sans-serif']
                     },
                     animation: {
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -70,7 +70,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Styles dynamiques */
         .btn-electric {
             background: linear-gradient(45deg, #FF6B35 0%, #00A6FB 100%);
             @apply text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl;
@@ -126,6 +125,11 @@
             border-radius: 3px;
             transition: width 0.5s ease;
         }
+        
+        .required-field::after {
+            content: " *";
+            color: #FF6B35;
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50 min-h-screen">
@@ -140,27 +144,26 @@
                     <h1 class="text-2xl font-extrabold tracking-tight">FMDD</h1>
                 </div>
                 
-                <nav class="hidden md:flex items-center space-x-2">
-                    <a href="/" class="nav-link text-white p-6">Accueil</a>
-                    <a href="{{ route('apropos') }}" class="nav-link text-white p-6">À propos</a>
-<a href="{{ route('contact') }}" class="nav-link text-white p-6">Contact</a>
-
-                   
-                </nav>
-                
-                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
+                <div class="flex items-center space-x-6">
+                    <nav class="hidden md:flex items-center space-x-2">
+                        <a href="/" class="nav-link text-white p-6">Accueil</a>
+                        <a href="{{ route('apropos') }}" class="nav-link text-white p-6">À propos</a>
+                        <a href="{{ route('contact') }}" class="nav-link text-white p-6">Contact</a>
+                    </nav>
+                    
+                    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
   
         <div id="mobile-menu" class="hidden md:hidden bg-deep-blue pb-4">
             <div class="container mx-auto px-6 flex flex-col space-y-3">
                 <a href="/" class="nav-link text-white py-3">Accueil</a>
-                <a href="#" class="nav-link text-white py-3">À propos</a>
-               
-                <a href="#" class="nav-link text-white py-3">Contact</a>
-              
+                <a href="{{ route('apropos') }}" class="nav-link text-white py-3">À propos</a>
+                <a href="{{ route('contact') }}" class="nav-link text-white py-3">Contact</a>
+            </div>
         </div>
     </header>
 
@@ -178,7 +181,9 @@
                             @if(Request::is('inscription') || Request::is('inscription/step1')) 1
                             @else <i class="fas fa-check"></i> @endif
                         </div>
-                        <span class="mt-2 text-xs font-bold @if(Request::is('inscription') || Request::is('inscription/step1')) text-electric-orange @else text-electric-blue @endif">Informations</span>
+                        <span class="mt-2 text-xs font-bold @if(Request::is('inscription') || Request::is('inscription/step1')) text-electric-orange @else text-electric-blue @endif">
+                            Informations
+                        </span>
                     </div>
                     
                     <div class="flex flex-col items-center z-10">
@@ -191,7 +196,9 @@
                             @elseif(Request::is('inscription/confirmation') || Session::has('member_data.step1')) <i class="fas fa-check"></i>
                             @else 2 @endif
                         </div>
-                        <span class="mt-2 text-xs font-bold @if(Request::is('inscription/documents')) text-electric-orange @else text-electric-blue @endif">Documents</span>
+                        <span class="mt-2 text-xs font-bold @if(Request::is('inscription/documents')) text-electric-orange @else text-electric-blue @endif">
+                            Documents
+                        </span>
                     </div>
                     
                     <div class="flex flex-col items-center z-10">
@@ -203,10 +210,11 @@
                             @elseif(Session::has('member_data.step2')) <i class="fas fa-check"></i>
                             @else 3 @endif
                         </div>
-                        <span class="mt-2 text-xs font-bold @if(Request::is('inscription/confirmation')) text-electric-orange @else text-electric-blue @endif">Confirmation</span>
+                        <span class="mt-2 text-xs font-bold @if(Request::is('inscription/confirmation')) text-electric-orange @else text-electric-blue @endif">
+                            Confirmation
+                        </span>
                     </div>
                     
-                     
                     <div class="absolute top-6 left-16 right-16 h-3 bg-gray-200 rounded-full z-0"></div>
                     <div class="progress-bar absolute top-6 left-16 z-0 rounded-full"
                          style="width: 
@@ -221,7 +229,6 @@
     @endif
 
     <main class="container mx-auto px-6 py-8">
-         
         @if(session('success'))
         <div class="bg-light-blue border-l-4 border-electric-blue rounded-lg shadow-md mb-6 overflow-hidden">
             <div class="p-4 flex items-center">
@@ -235,7 +242,7 @@
         </div>
         @endif
 
-        @if($errors->any()))
+        @if($errors->any())
         <div class="bg-light-orange border-l-4 border-electric-orange rounded-lg shadow-md mb-6 overflow-hidden">
             <div class="p-4 flex items-center">
                 <div class="bg-electric-orange p-3 rounded-full mr-4">
@@ -325,7 +332,6 @@
         </div>
     </footer>
 
-   
     <script>
         // Menu mobile
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
