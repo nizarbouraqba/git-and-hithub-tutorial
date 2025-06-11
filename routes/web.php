@@ -47,6 +47,7 @@ Route::get('/payment-success', [MemberController::class, 'paymentSuccess'])->nam
 
 
 // Routes pages statiques
+Route::view('/dashboard', 'dashboard')->name('dashboard');
 Route::view('/apropos', 'form.apropos')->name('apropos');
 Route::view('/contact', 'form.contact')->name('contact');
 
@@ -54,8 +55,21 @@ Route::get('/test-success', function () {
     return view('form.success');
 });
 
+// Routes CRUD Actualités
+use App\Http\Controllers\ActualiteController;
+Route::resource('actualites', ActualiteController::class);
 
+// Routes CRUD Events
+use App\Http\Controllers\EventController;
+Route::resource('events', EventController::class);
 
+// Routes CRUD Feedback
+use App\Http\Controllers\FeedbackController;
+Route::resource('feedback', FeedbackController::class);
+
+// Routes CRUD Projets
+use App\Http\Controllers\ProjetController;
+Route::resource('projets', ProjetController::class);
 
 // Route::post('/send-verification-code', [TestMailController::class, 'sendVerificationCode']);
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

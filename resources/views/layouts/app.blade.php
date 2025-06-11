@@ -146,10 +146,13 @@
                 
                 <div class="flex items-center space-x-6">
                     <nav class="hidden md:flex items-center space-x-2">
-                        <a href="/" class="nav-link text-white p-6">Accueil</a>
-                        <a href="{{ route('apropos') }}" class="nav-link text-white p-6">À propos</a>
-                        <a href="{{ route('contact') }}" class="nav-link text-white p-6">Contact</a>
-                    </nav>
+    <a href="/" class="nav-link text-white p-6">Accueil</a>
+    <a href="{{ route('apropos') }}" class="nav-link text-white p-6">À propos</a>
+    <a href="{{ route('contact') }}" class="nav-link text-white p-6">Contact</a>
+    @if (request()->is('/') )
+    <a href="/dashboard" class="ml-2 px-5 py-2 bg-electric-blue text-white rounded-lg font-bold shadow hover:bg-vibrant-blue transition-all duration-200 focus:ring-4 focus:ring-electric-blue/50">Dashboard</a>
+@endif
+</nav>
                     
                     <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
                         <i class="fas fa-bars text-2xl"></i>
@@ -371,5 +374,55 @@
     </script>
     
     @stack('scripts')
+<script>
+// Loader global
+function showLoader() {
+    document.getElementById('loader').classList.remove('hidden');
+}
+function hideLoader() {
+    document.getElementById('loader').classList.add('hidden');
+}
+// Modale de suppression (projets)
+function openDeleteModal(id) {
+    document.getElementById('delete-modal-' + id).classList.remove('hidden');
+}
+function closeDeleteModal(id) {
+    document.getElementById('delete-modal-' + id).classList.add('hidden');
+}
+// Afficher le loader lors de la soumission de tout formulaire CRUD
+window.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('form').forEach(function(form) {
+        form.addEventListener('submit', function(e) {
+            // Ne pas afficher le loader pour les recherches ou les formulaires GET
+            if(form.method.toLowerCase() === 'post' || form.method.toLowerCase() === 'put' || form.method.toLowerCase() === 'delete') {
+                showLoader();
+            }
+        });
+    });
+});
+// Ajout d'animations personnalisées Tailwind
+if(window.tailwind !== undefined) {
+    tailwind.config = tailwind.config || {};
+    tailwind.config.theme = tailwind.config.theme || {};
+    tailwind.config.theme.extend = tailwind.config.theme.extend || {};
+    tailwind.config.theme.extend.animation = {
+        ...tailwind.config.theme.extend.animation,
+        'fade-in': 'fadeIn 0.5s ease-out',
+        'slide-up': 'slideUp 0.8s cubic-bezier(0.4,0,0.2,1)',
+        'spin': 'spin 1s linear infinite'
+    };
+    tailwind.config.theme.extend.keyframes = {
+        ...tailwind.config.theme.extend.keyframes,
+        fadeIn: {
+            '0%': { opacity: '0', transform: 'translateY(30px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' }
+        },
+        slideUp: {
+            '0%': { opacity: '0', transform: 'translateY(40px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' }
+        }
+    };
+}
+</script>
 </body>
 </html>
